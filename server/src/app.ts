@@ -7,6 +7,7 @@ import routes from "./routes/index.route";
 import { appConfig } from "./config/app.config";
 import rateLimit from "express-rate-limit";
 import { requestLogging, errorLogging } from "./middleware/logging";
+import authRoutes from "./routes/auth.routes";
 
 const app: Express = express();
 
@@ -23,14 +24,19 @@ app.use(cors(appConfig.cors));
 // this.app.use(commpression())
 
 // rate limiting middleware
-const limiter = rateLimit(appConfig.rateLimit);
-app.use(limiter);
+const limiter = rateLimit(appConfig.basicRateLimit);
+const authLimiter = rateLimit(appConfig.authRateLimit);
+app.use("/api/", limiter);
+app.use("/auth/", authLimiter);
 
 // health monitoring
 app.use(statusMonitor());
 
 // API Routes
 app.use("/api", routes);
+
+// auth route
+app.use("/auth", authRoutes);
 
 // Error handling
 app.use(errorLogging);

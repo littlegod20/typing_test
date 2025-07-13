@@ -19,9 +19,9 @@ export const registerController = async (
       password,
     });
 
-    res.json({ user, redirect:'/api/auth/login' });
+    res.json({ user, redirect: "/api/auth/login" });
   } catch (error) {
-    next(error);
+    res.json({ msg: error instanceof Error ? error.message : String(error) });
   }
 };
 

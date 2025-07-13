@@ -3,12 +3,25 @@ import { User } from "../entities/user.entity";
 import { Repository } from "typeorm";
 import { generateAccessToken, generateRefreshToken } from "../utils/jwt.util";
 import { CreateUserDto } from "../dto/user.dto";
+import { validateEmail } from "../utils/emailValidation.util";
 
 export class AuthService {
   constructor(private readonly userRepository: Repository<User>) {}
 
   async register(user: CreateUserDto) {
-    const hashedPassword = await bcrypt.hash(user.email, 10);
+    const existingUser = await this.userRepository.findOne({
+      where: { email: user.email },
+    });
+
+    //checking for existing user
+    if (!existingUser) throw new Error("User already exists");
+
+    // checking for email validity
+    if (!validateEmail(user.email)) throw new Error("Invalid email");
+
+    // hash password
+    const hashedPassword = await bcrypt.hash(user.password, 10);
+
     const newUser = this.userRepository.create({
       username: user.username,
       email: user.email,
