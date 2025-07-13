@@ -1,8 +1,16 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  CreateDateColumn,
+  DeleteDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from "typeorm";
+import { IsNotEmpty } from "class-validator";
 
 @Entity("users")
 export class User {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn("uuid")
   id!: number;
 
   @Column({ unique: true })
@@ -12,14 +20,18 @@ export class User {
   email!: string;
 
   @Column()
+  @IsNotEmpty()
   password!: string;
 
-  @Column({type: "timestamp"})
+  @Column({ nullable: true })
+  refreshToken!: string;
+
+  @CreateDateColumn({ type: "timestamp", nullable: true })
   createdAt!: Date;
 
-  @Column({ type: "timestamp" })
+  @UpdateDateColumn({ type: "timestamp", nullable: true })
   updatedAt!: Date;
 
-  @Column({ type: "timestamp", nullable: true, default: null })
+  @DeleteDateColumn({ type: "timestamp", nullable: true, default: null })
   deletedAt!: Date | null;
 }
