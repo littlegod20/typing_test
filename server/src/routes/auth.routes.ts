@@ -20,19 +20,31 @@ router.post("/login", (req, res, next) => {
       if (err) return next(err);
 
       if (!user) {
-        return res
-          .status(400)
-          .json({
-            success: false,
-            message: info?.message || "Authorization failed",
-          });
+        return res.status(400).json({
+          success: false,
+          message: info?.message || "Authorization failed",
+        });
       }
 
       req.user = user;
-      return loginController(req, res, next);
+      return loginController(req, res);
     }
   )(req, res, next);
 });
+
+router.get(
+  "/google",
+  passport.authenticate("google", { scope: ["profile", "email"] })
+);
+
+router.get(
+  "/google/callback",
+  passport.authenticate(
+    "google",
+    { session: false, failureRedirect: "/login" },
+    loginController
+  )
+);
 
 router.post(
   "/refresh",

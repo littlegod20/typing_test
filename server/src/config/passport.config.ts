@@ -3,13 +3,16 @@ import passport from "passport";
 import { User } from "../entities/user.entity";
 import * as bcrypt from "bcrypt";
 import { Strategy as JwtStrategy, ExtractJwt } from "passport-jwt";
+import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import { config } from "dotenv";
 import { AppDataSource } from "./database.config";
+import { appConfig } from "./app.config";
 
 config();
 
 const userRepository = AppDataSource.getRepository(User);
 
+// local strategy
 passport.use(
   new LocalStrategy(
     {
@@ -54,6 +57,46 @@ passport.use(
         return done(null, false);
       } catch (error) {
         return done(error, false);
+      }
+    }
+  )
+);
+
+// google strategy
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: appConfig.googleCred.clientId!,
+      clientSecret: appConfig.googleCred.clientSecret!,
+      callbackURL: "/auth/google/callback",
+    },
+    async (accessToken, refreshToken, profile, done) => {
+      try {
+        const email = profile.emails?.[0].value;
+        const domain = email?.split("@")[1];
+
+        if (domain !== "gmail.com") {
+          return done(null, false, {
+            message: "Access restricted to @gmail.com accounts only",
+          });
+        }
+
+        let user = await userRepository.findOne({
+          where: { email: email },
+        });
+
+        if (!user) {
+          user = userRepository.create({
+            email: email,
+            username: profile.displayName,
+          });
+
+          await userRepository.save(user);
+        }
+
+        return done(null, user);
+      } catch (error) {
+        return done(error);
       }
     }
   )

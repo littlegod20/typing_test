@@ -17,7 +17,7 @@ export const appConfig = {
   authRateLimit: {
     windowMs: 15 * 60 * 1000,
     max: 20,
-    message: 'Too many login attempts, please try again later'
+    message: "Too many login attempts, please try again later",
   },
   cors: {
     origin: process.env.CORS_ORIGIN ?? "*",
@@ -27,4 +27,8 @@ export const appConfig = {
   },
   env: process.env.NODE_ENV ?? "development",
   logLevel: process.env.LOG_LEVEL ?? "info",
+  googleCred: {
+    clientId: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+  },
 };
