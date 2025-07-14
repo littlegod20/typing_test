@@ -40,8 +40,7 @@ export const refreshController = async (
 
 export const loginController = async (
   req: Request,
-  res: Response,
-  next: NextFunction
+  res: Response
 ) => {
   try {
     const { email } = req.body;
