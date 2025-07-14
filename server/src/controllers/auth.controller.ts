@@ -56,6 +56,6 @@ export const loginController = async (
 
     res.json({ user, tokens });
   } catch (error) {
-    next(error);
+    res.json({ msg: error instanceof Error ? error.message : String(error) });
   }
 };

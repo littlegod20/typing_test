@@ -8,6 +8,8 @@ import { appConfig } from "./config/app.config";
 import rateLimit from "express-rate-limit";
 import { requestLogging, errorLogging } from "./middleware/logging";
 import authRoutes from "./routes/auth.routes";
+import passport from "passport";
+import './config/passport.config'
 
 const app: Express = express();
 
@@ -17,6 +19,8 @@ app.use(express.json());
 
 // Logging
 app.use(requestLogging);
+
+app.use(passport.initialize());
 
 // security middlewares
 app.use(helmet());

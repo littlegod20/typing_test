@@ -3,7 +3,6 @@ import { User } from "../entities/user.entity";
 import { Repository } from "typeorm";
 import { generateAccessToken, generateRefreshToken } from "../utils/jwt.util";
 import { CreateUserDto } from "../dto/user.dto";
-import { validateEmail } from "../utils/emailValidation.util";
 
 export class AuthService {
   constructor(private readonly userRepository: Repository<User>) {}
@@ -14,10 +13,7 @@ export class AuthService {
     });
 
     //checking for existing user
-    if (!existingUser) throw new Error("User already exists");
-
-    // checking for email validity
-    if (!validateEmail(user.email)) throw new Error("Invalid email");
+    if (existingUser) throw new Error("User already exists");
 
     // hash password
     const hashedPassword = await bcrypt.hash(user.password, 10);
