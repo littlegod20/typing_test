@@ -1,10 +1,16 @@
+console.log("Starting server file ....")
+
 import { initializeDatabase } from "./config/database.config";
-import app from "./app";
+// import app from "./app";
 import { appConfig } from "./config/app.config";
 import logger from "./config/logger";
+console.log("Imports successful");
+import app from "./app";
+
 
 const startServer = async () => {
   try {
+    console.log("starting ")
     logger.info("Initializing database connection...");
     // database initialiazation
     initializeDatabase();

@@ -9,8 +9,9 @@ import rateLimit from "express-rate-limit";
 import { requestLogging, errorLogging } from "./middleware/logging";
 import authRoutes from "./routes/auth.routes";
 import passport from "passport";
+console.log("debugging point....")
 import './config/passport.config'
-
+console.log("continue debugging....")
 const app: Express = express();
 
 // Body parsing middleware
