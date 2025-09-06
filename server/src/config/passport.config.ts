@@ -64,42 +64,41 @@ passport.use(
 );
 
 // google strategy
-// passport.use(
-//   new GoogleStrategy(
-//     {
-//       clientID: appConfig.googleCred.clientId!,
-//       clientSecret: appConfig.googleCred.clientSecret!,
-//       callbackURL: "/auth/google/callback",
-//     },
-//     async (accessToken, refreshToken, profile, done) => {
-//       try {
-//         const email = profile.emails?.[0].value;
-//         const domain = email?.split("@")[1];
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: appConfig.googleCred.clientId!,
+      clientSecret: appConfig.googleCred.clientSecret!,
+      callbackURL: "/auth/google/callback",
+    },
+    async (accessToken, refreshToken, profile, done) => {
+      try {
+        const email = profile.emails?.[0].value;
+        const domain = email?.split("@")[1];
 
-//         if (domain !== "gmail.com") {
-//           return done(null, false, {
-//             message: "Access restricted to @gmail.com accounts only",
-//           });
-//         }
+        if (domain !== "gmail.com") {
+          return done(null, false, {
+            message: "Access restricted to @gmail.com accounts only",
+          });
+        }
 
-//         let user = await userRepository.findOne({
-//           where: { email: email },
-//         });
+        let user = await userRepository.findOne({
+          where: { email: email },
+        });
 
-//         if (!user) {
-//           user = userRepository.create({
-//             email: email,
-//             username: profile.displayName,
-//           });
+        if (!user) {
+          user = userRepository.create({
+            email: email,
+            username: profile.displayName,
+          });
 
-//           await userRepository.save(user);
-//         }
+          await userRepository.save(user);
+        }
 
-//         return done(null, user);
-//       } catch (error) {
-//         return done(error);
-//       }
-//     }
-//   )
-// );
-console.log("config testing....")
+        return done(null, user);
+      } catch (error) {
+        return done(error);
+      }
+    }
+  )
+);
