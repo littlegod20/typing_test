@@ -1,20 +1,28 @@
 import {
   Column,
-  CreateDateColumn,
-  DeleteDateColumn,
   Entity,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
+  OneToMany,
 } from "typeorm";
 import { IsNotEmpty } from "class-validator";
+import { CommonEntity } from "./common.entity";
+import { TypingTest } from "./typing_test.entity";
+import { UserProgress } from "./user_progress.entity";
+import { ErrorLog } from "./error_log.entity";
+import { UserBadge } from "./user_badge.entity";
 
 @Entity("users")
-export class User {
-  @PrimaryGeneratedColumn("uuid")
-  id!: number;
-
+export class User extends CommonEntity {
   @Column({ unique: true })
   username!: string;
+
+  @OneToMany(() => UserProgress, (user_progress) => user_progress.user)
+  user_progress!: UserProgress[];
+
+  @OneToMany(() => ErrorLog, (error_log) => error_log.user)
+  error_logs!: ErrorLog[];
+
+  @OneToMany(() => UserBadge, (user_badge) => user_badge.user)
+  user_badges!: UserBadge[]
 
   @Column({ unique: true })
   email!: string;
@@ -24,14 +32,11 @@ export class User {
   password!: string;
 
   @Column({ nullable: true })
-  refreshToken!: string;
+  refresh_token!: string;
 
-  @CreateDateColumn({ type: "timestamp", nullable: true })
-  createdAt!: Date;
+  @Column({ default: new Date() })
+  date_joined!: Date
 
-  @UpdateDateColumn({ type: "timestamp", nullable: true })
-  updatedAt!: Date;
-
-  @DeleteDateColumn({ type: "timestamp", nullable: true, default: null })
-  deletedAt!: Date | null;
+  @OneToMany(() => TypingTest, (typing_test) => typing_test.user)
+  typing_tests!: TypingTest[]
 }
