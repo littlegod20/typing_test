@@ -15,6 +15,13 @@ export class User extends CommonEntity {
   @Column({ unique: true })
   username!: string;
 
+  @Column({ unique: true })
+  email!: string;
+
+  @Column()
+  @IsNotEmpty()
+  password!: string;
+
   @OneToMany(() => UserProgress, (user_progress) => user_progress.user)
   user_progress!: UserProgress[];
 
@@ -24,20 +31,6 @@ export class User extends CommonEntity {
   @OneToMany(() => UserBadge, (user_badge) => user_badge.user)
   user_badges!: UserBadge[]
 
-  @Column({ unique: true })
-  email!: string;
-
-  @Column()
-  @IsNotEmpty()
-  password!: string;
-
   @OneToMany(() => TypingTest, (typing_test) => typing_test.user)
   typing_tests!: TypingTest[]
-
-  @Column({ nullable: true })
-  refresh_token!: string;
-
-  @Column({ default: new Date() })
-  date_joined!: Date
-
 }
