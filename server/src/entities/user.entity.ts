@@ -31,12 +31,13 @@ export class User extends CommonEntity {
   @IsNotEmpty()
   password!: string;
 
+  @OneToMany(() => TypingTest, (typing_test) => typing_test.user)
+  typing_tests!: TypingTest[]
+
   @Column({ nullable: true })
   refresh_token!: string;
 
   @Column({ default: new Date() })
   date_joined!: Date
 
-  @OneToMany(() => TypingTest, (typing_test) => typing_test.user)
-  typing_tests!: TypingTest[]
 }
