@@ -1,7 +1,6 @@
 import { initializeDatabase } from "./config/database.config";
 import { appConfig } from "./config/app.config";
 import logger from "./config/logger";
-console.log("Imports successful");
 import app from "./app";
 
 

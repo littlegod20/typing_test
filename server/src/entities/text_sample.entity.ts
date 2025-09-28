@@ -2,6 +2,7 @@ import { Column, Entity, OneToMany } from "typeorm";
 import { Category, DifficultyLevel, Language } from "../enums"
 import { CommonEntity } from "./common.entity";
 import { TypingTest } from "./typing_test.entity";
+import { Lesson } from "./lesson.entity";
 
 
 @Entity()
@@ -27,5 +28,8 @@ export class TextSample extends CommonEntity {
 
   @OneToMany(() => TypingTest, (typing_test) => typing_test.text_sample)
   typing_tests!: TypingTest[]
+
+  @OneToMany(() => Lesson, (lesson) => lesson.text_sample)
+  lesson!: Lesson[]
 
 }

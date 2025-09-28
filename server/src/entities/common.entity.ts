@@ -5,7 +5,7 @@ import { CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, Upd
 export class CommonEntity {
 
   @PrimaryGeneratedColumn("uuid")
-  id!: number;
+  id!: string;
 
   @CreateDateColumn()
   created_at!: Date;

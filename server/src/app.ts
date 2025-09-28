@@ -24,7 +24,7 @@ app.use(passport.initialize());
 // security middlewares
 app.use(helmet());
 app.use(cors(appConfig.cors));
-// this.app.use(commpression())
+// app.use(commpression())
 
 // rate limiting middleware
 const limiter = rateLimit(appConfig.basicRateLimit);
