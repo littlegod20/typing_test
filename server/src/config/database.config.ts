@@ -1,6 +1,7 @@
 import { DataSource } from "typeorm";
 import { config } from "dotenv";
 import logger from "./logger";
+import { seedCourses, seedLessons, seedTextSamples } from "../utils/seed";
 
 config();
 
@@ -22,8 +23,16 @@ export const initializeDatabase = async (): Promise<void> => {
   try {
     await AppDataSource.initialize();
     logger.info("Database connection established");
+
+    // adding seed after successful connection
+    if (process.env.NODE_ENV === "development" || process.env.SEED_DATA === "true") {
+      await seedTextSamples(AppDataSource);
+      await seedCourses(AppDataSource)
+      await seedLessons(AppDataSource)
+      logger.info("Database seeding completed")
+    }
   } catch (error) {
-    console.error("Error connecting to database:", error);
+    logger.error("Error connecting to database:", error);
     throw error;
   }
 };

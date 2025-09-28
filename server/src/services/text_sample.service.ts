@@ -13,7 +13,7 @@ export class TextSampleService {
   }
 
   async findTextSampleById(id: string) {
-    const textSampleById = await this.textSampleRepository.findBy({ id: id })
+    const textSampleById = await this.textSampleRepository.findOne({ where: { id } })
 
     return textSampleById
   }

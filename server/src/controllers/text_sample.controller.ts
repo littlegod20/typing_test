@@ -35,7 +35,7 @@ export const getTextSampleById = async (req: Request, res: Response) => {
     res.status(200).json({ success: true, message: "Successfully retrieved text sample", data: sample })
   } catch (error) {
     logger.error(`Failed to retrieve text sample:`, error)
-    res.status(404).json({ success: false, message: "Failed to retrieve text sample" })
+    res.json({ success: false, message: "Failed to retrieve text sample" })
   }
 }
 
@@ -89,7 +89,6 @@ export const updatedTextSample = async (req: Request, res: Response) => {
   }
 }
 
-
 // removing a textsample
 export const deleteTextSample = async (req: Request, res: Response) => {
   try {
@@ -109,11 +108,11 @@ export const deleteTextSample = async (req: Request, res: Response) => {
 
     await textSampleService.delete(id)
 
-    res.status(200).json({ success: true, message: `Text sample '${findSample[0].title}' has been deleted successfully` })
+    res.status(200).json({ success: true, message: `Text sample '${findSample.title}' has been deleted successfully` })
 
   } catch (error) {
     logger.error("Error deleting text sample:", error instanceof Error ? error.message : String(error))
 
-    res.status(400).json({ success: false, message: error instanceof Error ? error.message : String(error) })
+    res.json({ success: false, message: error instanceof Error ? error.message : String(error) })
   }
 }
