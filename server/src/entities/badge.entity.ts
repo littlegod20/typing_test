@@ -1,6 +1,7 @@
 import { Column, Entity, OneToMany } from "typeorm";
 import { CommonEntity } from "./common.entity";
 import { UserBadge } from "./user_badge.entity";
+import { IsOptional } from "class-validator";
 
 
 @Entity()
@@ -9,7 +10,7 @@ export class Badge extends CommonEntity {
   @Column()
   name!: string;
 
-  @Column("text")
+  @Column("text", { nullable: true })
   description!: string;
 
   @Column()
