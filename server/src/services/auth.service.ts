@@ -5,7 +5,7 @@ import { generateAccessToken, generateRefreshToken } from "../utils/jwt.util";
 import { CreateUserDto } from "../dto/user.dto";
 
 export class AuthService {
-  constructor(private readonly userRepository: Repository<User>) {}
+  constructor(private readonly userRepository: Repository<User>) { }
 
   async register(user: CreateUserDto) {
     const existingUser = await this.userRepository.findOne({
@@ -42,5 +42,15 @@ export class AuthService {
 
   async refreshToken(user: User) {
     return generateRefreshToken(user);
+  }
+
+  async updateUser(user: Partial<User>) {
+    const userData = await this.userRepository.update({
+      id: user.id
+    }, {
+      ...user
+    })
+
+    return userData
   }
 }

@@ -1,7 +1,9 @@
 import {
   Column,
   Entity,
+  JoinColumn,
   OneToMany,
+  OneToOne,
 } from "typeorm";
 import { IsNotEmpty } from "class-validator";
 import { CommonEntity } from "./common.entity";
@@ -9,6 +11,7 @@ import { TypingTest } from "./typing_test.entity";
 import { UserProgress } from "./user_progress.entity";
 import { ErrorLog } from "./error_log.entity";
 import { UserBadge } from "./user_badge.entity";
+import { UserSettings } from "./user_settings.entity";
 
 @Entity("users")
 export class User extends CommonEntity {
@@ -33,4 +36,9 @@ export class User extends CommonEntity {
 
   @OneToMany(() => TypingTest, (typing_test) => typing_test.user)
   typing_tests!: TypingTest[]
+
+  @OneToOne(() => UserSettings, (user_settings) => user_settings.user)
+  @JoinColumn({ name: "user_settings_id" })
+  user_settings!: UserSettings
+
 }
