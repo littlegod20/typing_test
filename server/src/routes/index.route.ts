@@ -1,8 +1,9 @@
 import { Router } from "express";
-import text_sample_routes from "./text-sample.routes"
+import text_sample_routes from "./text_sample.routes"
 import course_routes from "./course.routes"
 import lesson_routes from "./lesson.routes"
 import badge_routes from "./badge.routes"
+import user_setting_routes from "./user_settings.routes"
 
 const router = Router();
 
@@ -21,5 +22,6 @@ router.use('/lessons', lesson_routes)
 
 router.use('/badges', badge_routes)
 
+router.use('/user_setting', user_setting_routes)
 
 export default router;

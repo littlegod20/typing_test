@@ -2,9 +2,13 @@ import { NextFunction, Request, Response } from "express";
 import { AuthService } from "../services/auth.service";
 import { AppDataSource } from "../config/database.config";
 import { User } from "../entities/user.entity";
+import { UserSettingsService } from "../services/user_settings.service";
+import { UserSettings } from "../entities/user_settings.entity";
 
 const userRepository = AppDataSource.getRepository(User);
+const userSettingRepo = AppDataSource.getRepository(UserSettings)
 const authService = new AuthService(userRepository);
+const userSettingService = new UserSettingsService(userSettingRepo)
 
 export const registerController = async (
   req: Request,
@@ -18,6 +22,12 @@ export const registerController = async (
       email,
       password,
     });
+
+    // create default usersetting for user
+    const setting = await userSettingService.create()
+
+    // update the created user with the setting
+    await authService.updateUser({ ...user, user_settings: setting })
 
     res.json({ user, redirect: "/api/auth/login" });
   } catch (error) {
