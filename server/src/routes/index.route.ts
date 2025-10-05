@@ -4,6 +4,7 @@ import course_routes from "./course.routes"
 import lesson_routes from "./lesson.routes"
 import badge_routes from "./badge.routes"
 import user_setting_routes from "./user_settings.routes"
+import error_logs_routes from './error_logs.routes'
 
 const router = Router();
 
@@ -14,7 +15,7 @@ router.use("/health", (_req, res) => {
   });
 });
 
-router.use("/text-samples", text_sample_routes)
+router.use("/text_samples", text_sample_routes)
 
 router.use('/courses', course_routes)
 
@@ -23,5 +24,7 @@ router.use('/lessons', lesson_routes)
 router.use('/badges', badge_routes)
 
 router.use('/user_setting', user_setting_routes)
+
+router.use('/error_logs', error_logs_routes)
 
 export default router;
