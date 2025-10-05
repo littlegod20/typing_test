@@ -5,7 +5,7 @@ import { TypingTest } from "./typing_test.entity";
 @Entity()
 export class ErrorLog {
   @PrimaryGeneratedColumn("uuid")
-  id!: number;
+  id!: string;
 
   @ManyToOne(() => User, (user) => user.error_logs)
   @JoinColumn({ name: "user_id" })
