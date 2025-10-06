@@ -491,7 +491,7 @@ For support, email support@ogtyper.com or join our Discord server.
 ## 🔗 Links
 
 - **Website:** https://ogtyper.com
-- **Documentation:** https://docs.ogtyper.com
+- **Documentation:** [https://docs.ogtyper.com](https://docs.google.com/document/d/1L-BMuZsAkZMoObdMzm_xz2R6xJpqxIz8A5LTvuHXra8/edit?usp=sharing)
 - **API Docs:** https://api.ogtyper.com/docs
 - **Discord:** https://discord.gg/ogtyper
 - **Twitter:** [@ogtyper](https://twitter.com/ogtyper)
