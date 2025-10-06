@@ -1,4 +1,4 @@
-# OG Typer 🚀⌨️
+# OG Typer Backend🚀⌨️
 
 A comprehensive typing practice platform with gamification, real-time multiplayer races, personalized drills, and detailed performance analytics.
 
