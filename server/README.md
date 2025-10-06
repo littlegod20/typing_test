@@ -486,7 +486,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Support
 
-For support, email support@ogtyper.com or join our Discord server.
+For support, email theophilusfrimpong17@gmail.com or contact [+233 24 359 6533](https://wa.me/233243596533?text=Hello%Theophilus%I%will%love%to%help%support%og%typer!).
 
 ## 🔗 Links
 
@@ -498,4 +498,4 @@ For support, email support@ogtyper.com or join our Discord server.
 
 ---
 
-Made with ⌨️ and ☕ by the OG Typer team
+Made with ⌨️ and ☕ by Theophilous Asante Frimpong
